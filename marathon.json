@@ -1,0 +1,42 @@
+{
+"id": "/dcosb/cassandra",
+"cmd": null,
+"cpus": 1,
+"mem": 1024,
+"disk": 1024,
+"instances": 1,
+"container": {
+"type": "DOCKER",
+"volumes": [],
+"docker": {
+"image": "registry.system.marathon.mesos:5000/io.predix.dcosb/service-module-example-cassandra:0.1-SNAPSHOT",
+"network": "BRIDGE",
+"portMappings": [
+{
+"containerPort": 8080,
+"hostPort": 9961,
+"servicePort": 10104,
+"protocol": "tcp",
+"labels": {}
+}
+],
+"privileged": false,
+"parameters": [],
+"forcePullImage":true 
+}
+},
+"env": {
+"ADDITIONAL_OPTS": "-Dakka.loglevel=DEBUG"
+},
+"labels": {
+"HAPROXY_GROUP": "external",
+"HAPROXY_0_VHOST": "cassandra.dcosb"
+},
+"portDefinitions": [
+{
+"port": 10104,
+"protocol": "tcp",
+"labels": {}
+}
+]
+}
