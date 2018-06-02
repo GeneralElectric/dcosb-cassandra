@@ -1,0 +1,30 @@
+<%@ val dockerImage: String %>
+<%@ val serviceVhost: String %>
+{
+  "id": "/dcosb/cassandra",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 1024,
+  "disk": 1024,
+  "instances": 1,
+  "container": {
+    "type": "MESOS",
+    "docker": {
+      "image": "${dockerImage}",
+      "pullConfig": {
+        "secret": "pullConfigSecret"
+      }
+    }
+  },
+  "env": {
+    "BROKER_LISTEN_PORT": "$PORT0"
+  },
+  "secrets": {
+    "pullConfigSecret": {
+      "source": "/dcosb/cassandra/dtr-predix"
+    }
+  },
+  "labels": {
+    "avi_proxy": "{\"virtualservice\":{\"east_west_placement\": false}, \"host\": \"${serviceVhost}\",\"path\": \"/\"}"
+  }
+}
